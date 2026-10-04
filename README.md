@@ -1,8 +1,10 @@
-# Rental Housing Law Navigator
+# Keyclause
+
+*Know your renter rules.* A Rental Housing Law Navigator for the RealPage challenge.
 
 **Not legal advice.** This is a transparency prototype built from public sources. Every answer shows its source text, citation, retrieval date and as-of date.
 
-Hack-Nation 7th Global AI Hackathon, RealPage Challenge 2. **Live demo:** https://dhavalvibhakar99.github.io/rental-housing-law-navigator/ (served from `docs/`). **Code:** https://github.com/DhavalVibhakar99/rental-housing-law-navigator
+Hack-Nation 7th Global AI Hackathon, RealPage Challenge 2. **Live demo:** https://dhavalvibhakar99.github.io/keyclause/ (served from `docs/`). **Renter app:** https://keyclause.lovable.app. **Code:** https://github.com/DhavalVibhakar99/keyclause
 
 ## What it does
 

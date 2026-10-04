@@ -1,4 +1,4 @@
-# Method note: Rental Housing Law Navigator
+# Method note: Keyclause (Rental Housing Law Navigator)
 
 **Not legal advice.** Spec: the v5 participant guide. The original Hack-Nation brief is superseded.
 
