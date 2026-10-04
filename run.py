@@ -6,6 +6,7 @@
   python3 run.py check                        self-check (schemas, spans, T1-T5, invariants, gold set)
   python3 run.py all                          extract + build + check
   python3 run.py explain A0001 [--as-of DATE] show one address's answer
+  python3 run.py export                       app/simple.json + app/by_city.json (copied to docs/; no model)
 Not legal advice.
 """
 from __future__ import annotations
@@ -112,6 +113,63 @@ def cmd_explain(args):
     return 0
 
 
+def cmd_export(args):
+    from nav.exports import export, find_range
+    simple, by_city, report, facts, resolution, paths = export()
+    for p in paths:
+        print(f"wrote {p.relative_to(config.ROOT)} ({p.stat().st_size:,} bytes) and docs/{p.name}")
+    print("\nPlaces (ranges from each place's rules; splits found by the both-ends check; census name seen in geocoder):")
+    places = {p["key"]: p for p in by_city["places"]}
+    for k, p in places.items():
+        splits, seen = report[k]
+        print(f"  {k:18} {p['kind']:10} {len(p['year_ranges']) - 1} year ranges x {len(p['unit_ranges']) - 1} unit ranges"
+              f" | splits: {splits or 'none'} | census_names {p['census_names']}"
+              + (f" (seen {seen}x)" if seen is not None else ""))
+
+    # self-test: sample addresses with an exact year and exact unit count, looked up in by_city.json
+    addrs = {a["id"]: a for a in simple["addresses"]}
+    total, mism = 0, []
+    for aid, f in sorted(facts.items()):
+        if f.year_built is None or f.units_exact is None:
+            continue
+        total += 1
+        city = resolution[aid].get("city")
+        p = places.get(city) or places[f.state]
+        key = f"{find_range(p['year_ranges'], f.year_built)}|{find_range(p['unit_ranges'], f.units_exact)}"
+        want = [t["status"] for t in addrs[aid]["topics"]]
+        got = [t["status"] for t in p["results"][key]]
+        if want != got:
+            diff = [f"{t['topic']}: sample {w}, table {g}" for t, w, g in zip(addrs[aid]["topics"], want, got) if w != g]
+            cause = []
+            d = f.use_description.upper()
+            if f.subsidized:
+                cause.append("subsidized housing in the assessor record")
+            if any(k in d for k in ("CONDO", "TIC")):
+                cause.append(f"use description '{f.use_description}' (condo/TIC)")
+            if resolution[aid].get("flags"):
+                cause.append("geocoder flag: " + "; ".join(resolution[aid]["flags"]))
+            mism.append(f"  {aid} {city} built {f.year_built}, {f.units_exact} units -> {key}: " + "; ".join(diff)
+                        + f"\n      cause: {'; '.join(cause) or 'not explained by use description, subsidy or geocoder flags'}")
+    print(f"\nSelf-test: {total - len(mism)}/{total} sample addresses with exact year and units match by_city.json")
+    print("\n".join(mism) if mism else "  no mismatches")
+
+    def show(title, topics):
+        print(f"\n{title}")
+        for t in topics:
+            print(f"  {t['topic']:20} [{t['status']}{', flagged' if t['flag'] else ''}] {t['sentence']}")
+    for aid in ("A0001", "A0002"):
+        a = addrs[aid]
+        show(f"{aid}: {a['street']}, {a['postal_city']} (built {a['year_built']}, {a['units_label']})", a["topics"])
+    for title, key, y, u in (("Jersey City, built 1965, 12 units", "Jersey City, NJ", 1965, 12),
+                             ("Jersey City, year unknown, 12 units", "Jersey City, NJ", None, 12),
+                             ("Hoboken, built 2001, 20 units", "Hoboken, NJ", 2001, 20),
+                             ("New Jersey outside the three cities (state only), built 1990, 30 units", "NJ", 1990, 30)):
+        p = places[key]
+        k = f"{find_range(p['year_ranges'], y)}|{find_range(p['unit_ranges'], u)}"
+        show(f"{title}  [{k}]", p["results"][k])
+    return 0
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -120,9 +178,10 @@ def main():
     sub.add_parser("build")
     sub.add_parser("check")
     a = sub.add_parser("all"); a.add_argument("--docs"); a.add_argument("--workers", type=int, default=2)
+    sub.add_parser("export")
     x = sub.add_parser("explain"); x.add_argument("address_id"); x.add_argument("--as-of", default=config.DEFAULT_AS_OF)
     args = p.parse_args()
-    return {"classify": cmd_classify, "extract": cmd_extract, "build": cmd_build, "check": cmd_check, "all": cmd_all, "explain": cmd_explain}[args.cmd](args)
+    return {"classify": cmd_classify, "extract": cmd_extract, "build": cmd_build, "check": cmd_check, "all": cmd_all, "explain": cmd_explain, "export": cmd_export}[args.cmd](args)
 
 
 if __name__ == "__main__":
