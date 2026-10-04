@@ -155,7 +155,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 16px 32px; color: var(--m
   <aside>
     <div class="panel">
       <span id="count" class="cite"></span>
-      <ul class="results-list" id="results" aria-label="Matching addresses"></ul>
+      <ul class="results-list" id="results" aria-label="Matching addresses"><li class="empty loading">Loading 500 addresses and 54 rules…</li></ul>
     </div>
     <div class="panel stack" id="stack" style="margin-top:16px" aria-live="polite"></div>
   </aside>
@@ -163,7 +163,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 16px 32px; color: var(--m
     <h2 id="rules-h">Rules at this address</h2>
     <p class="cite" id="asof-line"></p>
     <div class="summary" id="summary"></div>
-    <div class="rules-wrap" id="rules"></div>
+    <div class="rules-wrap" id="rules"><p class="empty loading" role="status">Loading 500 addresses and 54 rules…</p></div>
   </section>
 </main>
 
@@ -195,7 +195,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 16px 32px; color: var(--m
   };
   const ORDER = ["applies", "unknown", "superseded", "not_yet_effective", "pending"];
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  if (!D) { $("#rules").innerHTML = '<p class="empty">No data yet. Run <code>python3 run.py build</code> to create app/data.js.</p>'; return; }
+  if (!D) { $("#results").innerHTML = ""; $("#rules").innerHTML = '<p class="empty">No data yet. Run <code>python3 run.py build</code> to create app/data.js.</p>'; return; }
 
   let current = null;
   const ids = Object.keys(D.addresses).sort();
