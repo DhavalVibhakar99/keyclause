@@ -100,6 +100,7 @@ We keep every rule but prefer starter-pack quotes:
 - **Jersey City rent control (JC-RENT-01):** its source page says exemptions exist but doesn't list them. We report "applies" at confidence 0.5 with that caveat. The gold-set labeller chose "unknown", and this is the only remaining gold-set difference.
 - **Tenancy-level carve-outs** (an owner sharing a kitchen or bath with the tenant) appear as caveats and don't change the building result.
 - **Rules with no stated effective date** are treated as in force.
+- **Conflict flag:** it marks only a real conflict, either sources stating different effective dates for the same rule, or a state rule that may preempt a local rule of the same category at that address (both are flagged). Other questions the extraction raised appear on the card and in the explanation as "Source note:". 16 of 54 rules are flagged.
 - **Massachusetts has no just-cause eviction law.** MA-EVIC-01 covers notice-to-quit rules only, and its card says so.
 - **Four rules rest on secondary pages** (law firm, news): MA-RENT-P1, JC-ALG-01, LA-DEP-01, SNA-ALG-01.
 - **Dates in the app:** the date picker offers only the precomputed dates (2025-12-31, 2026-01-02, 2026-10-01 and 2027-07-02).

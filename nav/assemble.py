@@ -159,10 +159,14 @@ def _merge(cluster):
                 cov[f] = ocov[f]
                 notes.append(f"coverage.{f} taken from {other['source_doc_id']}")
         p["coverage"] = cov
-    # conflicting effective dates across sources -> open question, flagged
+    # the model's own open question is a source note, not a conflict
+    p["source_note"] = p.get("open_question")
+    # conflicting effective dates across sources -> a real conflict, flagged
     eff = {r["effective_date"] for r in cluster if r.get("effective_date") and (r is cluster[0] or not _is_supporting(r))}
+    p["date_conflict_note"] = None
     if len(eff) > 1:
         oq = f"Sources state different effective dates: {', '.join(sorted(eff))}."
+        p["date_conflict_note"] = oq
         p["open_question"] = (p.get("open_question") + " " if p.get("open_question") else "") + oq
     p["additional_sources"] = [
         {"doc_id": o["source_doc_id"], "url": o["source_url"], "retrieved_at": o["retrieved_at"],
@@ -373,11 +377,17 @@ def assemble(extracted, as_of=config.DEFAULT_AS_OF):
         if r["level"] == "state" and r.get("yields_to_local_rule"):
             r["overrides"] = locals_
             r["interaction"] = r.get("interaction") or "Yields where a stricter local rule of the same category applies."
-        r["conflict_flag"] = bool(r.get("open_question")) or (
-            r["level"] == "state" and r.get("preempts_local") in ("yes", "possible") and bool(locals_))
-        notes = [x for x in [r.get("open_question")] if x]
-        if r["conflict_flag"] and r.get("preempts_local") in ("yes", "possible") and locals_:
+        # conflict = sources disagree on the effective date, or state/local preemption (both sides flagged).
+        # A plain open question is not a conflict; it is kept as source_note.
+        notes = [x for x in [r.get("date_conflict_note")] if x]
+        if r["level"] == "state" and r.get("preempts_local") in ("yes", "possible") and locals_:
             notes.append(f"May preempt local rules {', '.join(locals_)}; needs human review.")
+        if r["level"] == "city":
+            preempting = [s["team_rule_id"] for s in rules if s["level"] == "state" and s["jurisdiction"] == state
+                          and s["category"] == r["category"] and s.get("preempts_local") in ("yes", "possible")]
+            if preempting:
+                notes.append(f"May be preempted by state rule {', '.join(preempting)}; needs human review.")
+        r["conflict_flag"] = bool(notes)
         r["conflict_note"] = " ".join(notes) or None
     _apply_overrides(rules)
     _apply_coverage_evidence(rules)

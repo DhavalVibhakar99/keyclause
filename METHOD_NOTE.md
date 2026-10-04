@@ -63,4 +63,5 @@ We hand-labelled 30 rows from the law text, across the 9 cities. Each row is one
 
 - **Many unknowns come from facts that aren't public:** year built is missing for every Berkeley and San Diego address and for most in Hoboken and Newark. Owner facts are never available, and Newark has no unit data.
 - **Rules with no stated effective date** are treated as in force.
+- **Conflict flag:** it marks only a real conflict, either sources stating different effective dates for the same rule, or a state rule that may preempt a local rule of the same category at that address (both are flagged). Other questions the extraction raised appear on the card and in the explanation as "Source note:". 16 of 54 rules are flagged.
 - **Four rules rest on secondary pages:** MA-RENT-P1, JC-ALG-01, LA-DEP-01, SNA-ALG-01.

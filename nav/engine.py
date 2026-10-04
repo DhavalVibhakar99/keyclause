@@ -281,10 +281,9 @@ def lookup_address(rules, f, res, as_of):
     out = []
     for x in rows:
         r = x["rule"]
-        flag = bool(r.get("open_question"))
-        reasons_flag = []
-        if r.get("open_question"):
-            reasons_flag.append(r["open_question"])
+        # conflict = sources disagree on the effective date, or state/local preemption at this address
+        reasons_flag = [x for x in [r.get("date_conflict_note")] if x]
+        flag = bool(reasons_flag)
         if r["level"] == "state" and r.get("preempts_local") in ("yes", "possible") and (r["category"], "city") in cats_here:
             flag = True
             reasons_flag.append("may preempt the local rule here; needs human review")
@@ -297,6 +296,8 @@ def lookup_address(rules, f, res, as_of):
         expl = _explain(r, f, res, None, x["reasons"], x["unknowns"], x["notes"], x["status"], as_of)
         if res.get("flags"):
             expl += " Jurisdiction note: " + " ".join(res["flags"])
+        if r.get("source_note"):
+            expl += " Source note: " + r["source_note"]
         if reasons_flag:
             expl += " Review flag: " + " ".join(reasons_flag)
         out.append({

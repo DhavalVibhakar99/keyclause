@@ -38,6 +38,7 @@ def write_bundle(rules, facts, resolution, cache, changes):
         "lookups": {d: {aid: rows for aid, rows in table.items()} for d, table in cache.items()},
         "changes": changes,
         "open_questions": OPEN_QUESTIONS,
+        "source_notes": {r["team_rule_id"]: r["source_note"] for r in rules if r.get("source_note")},
         "sources": {d.doc_id: {"url": d.url, "retrieved": d.retrieved_at, "type": d.source_type,
                                "origin": d.origin} for d in corpus.values() if d.has_text},
     }

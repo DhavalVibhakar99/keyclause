@@ -117,6 +117,7 @@ blockquote {
 .plain { font-size: 16px; line-height: 1.5; margin: 4px 0 10px; }
 .nla { margin: 8px 0 0; }
 .lowconf { color: var(--flag); }
+.srcnote { font-size: 13px; color: var(--muted); margin: 6px 0; }
 .caveat { font-size: 14px; margin: 6px 0; padding: 6px 10px; border-left: 3px solid var(--flag); background: var(--ground); }
 .flag { color: var(--flag); font-size: 14px; font-weight: 600; }
 details { margin-top: 6px; font-size: 14px; }
@@ -257,6 +258,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 16px 32px; color: var(--m
       ${(r.caveats || []).map((c) => `<p class="caveat"><strong>Caveat:</strong> ${esc(c)}</p>`).join("")}
       <p class="why">${esc(row.explanation)}</p>
       ${row.conflict_flag ? `<p class="flag">Flagged for human review${r.conflict_note ? ": " + esc(r.conflict_note) : ""}</p>` : ""}
+      ${(D.source_notes || {})[row.team_rule_id] ? `<p class="srcnote"><strong>Source note:</strong> ${esc(D.source_notes[row.team_rule_id])}</p>` : ""}
       <blockquote>"${esc(r.quoted_span)}"</blockquote>
       <div class="cite">${esc(r.citation)} · <a href="${esc(r.source_url)}" target="_blank" rel="noopener">source</a> ${src}
         ${r.effective_date ? ` · effective ${esc(r.effective_date)} (${esc(r.effective_date_basis)})` : " · effective date not stated in source"}
