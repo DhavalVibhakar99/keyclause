@@ -1,0 +1,32 @@
+# --- secrets ---
+.anthropic_key
+.env
+*.key
+
+# --- model responses and local working files ---
+cache/
+__pycache__/
+*.pyc
+.DS_Store
+data/incoming/
+data/geocode_raw/
+tests/out/
+out_*backup*/
+
+# --- intermediate outputs (the three deliverables and extracted_raw.json are committed) ---
+out/audit_log.jsonl
+out/rules_internal.json
+out/resolution.json
+
+# --- third-party law texts: do not republish the starter pack or captured pages ---
+# Keep only the manifests, which list every source URL.
+pack/*
+!pack/corpus/
+pack/corpus/*
+!pack/corpus/corpus_manifest.csv
+!pack/corpus/links_only.csv
+data/extra_corpus/*
+!data/extra_corpus/extra_manifest.csv
+
+# --- internal team notes (delete this line to publish them) ---
+HANDOFF.md

@@ -1,0 +1,26 @@
+[
+ {
+  "match": {
+   "jurisdiction": "MA",
+   "category": "just_cause_eviction",
+   "source_doc_id": "D058"
+  },
+  "set": {
+   "title": "Massachusetts notice-to-quit requirements (no just-cause law)",
+   "citation": "M.G.L. c. 186, §§ 11, 12 and 31",
+   "requirement": "Massachusetts has no just-cause eviction law. These are notice rules only: to end a lease or a tenancy at will for unpaid rent, the landlord must give 14 days' written notice to quit (c. 186, §§ 11 and 12), and that notice must be accompanied by the required form (c. 186, § 31). They do not limit the reasons a landlord may end a tenancy."
+  },
+  "reason": "MA has no just-cause eviction law; card must say these are notice rules only and cite all three merged sections (team decision 2026-10-03)"
+ },
+ {
+  "match": {
+   "jurisdiction": "Los Angeles, CA",
+   "category": "just_cause_eviction",
+   "source_doc_id": "D040"
+  },
+  "set": {
+   "key_value": "Just cause required to end a tenancy; no-fault evictions require relocation assistance"
+  },
+  "reason": "key value must describe the just-cause requirement, not relocation amounts; wording follows the quoted span (team decision 2026-10-03)"
+ }
+]

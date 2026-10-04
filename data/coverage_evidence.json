@@ -1,0 +1,237 @@
+[
+ {
+  "match": {
+   "jurisdiction": "Berkeley, CA",
+   "category": "rent_increase_limits",
+   "source_doc_id": "D008"
+  },
+  "evidence_doc_id": "D009",
+  "reason": "Berkeley coverage table (D009), team decision 2026-10-03: rent control covers units built before 1980; units with a certificate of occupancy after June 1980 are not rent-controlled; a missing year built gives unknown.",
+  "date_cutoff": {
+   "basis": "certificate_of_occupancy",
+   "covered_if": "on_or_before",
+   "date": "1980-06",
+   "quote": "New construction: units that were built and received a Certificate of Occupancy after June 1980** Partially Covered Yes No Yes Yes"
+  },
+  "exemptions": [
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 2,
+    "description": "Golden Duplex: duplex owner-occupied on December 31, 1979, with an owner still living in one unit",
+    "quote": "“Golden Duplex”: duplex that was owner-occupied on December 31, 1979, and currently has an owner living in one of the units"
+   },
+   {
+    "fact": "tenancy_specific",
+    "description": "unit where the owner shares a kitchen or bath with the tenant",
+    "quote": "Unit where the owner shares a kitchen or bath with the tenant if the owner lived on the property at the time the tenancy started"
+   },
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 2,
+    "description": "tenancy started after Nov 7, 2018 on a property where one unit is an ADU and either unit is owner-occupied",
+    "quote": "Tenancies started after Nov 7, 2018, on properties where one unit is an ADU and either unit is owner-occupied."
+   },
+   {
+    "fact": "special_housing_type",
+    "description": "university rental units such as dormitories",
+    "quote": "University rental units such as dormitories. Exempt No No No No"
+   },
+   {
+    "fact": "special_housing_type",
+    "description": "nonprofit cooperative",
+    "quote": "Nonprofit Cooperative Exempt No No No No"
+   },
+   {
+    "fact": "single_family_or_condo",
+    "description": "single-family home with a tenancy that began on or after January 1, 1996, and most condominiums (no rent control)",
+    "quote": "Most condominiums** Partially Covered Yes No Yes Yes"
+   },
+   {
+    "fact": "subsidized_or_affordable",
+    "description": "Section 202 or Section 811 supportive housing (no rent control)",
+    "quote": "Section 202 Supportive Housing for the Elderly, Section 811 Supportive Housing for Persons with Disabilities Partially Covered Yes No Yes Yes"
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "Berkeley, CA",
+   "category": "just_cause_eviction",
+   "source_doc_id": "D006"
+  },
+  "evidence_doc_id": "D009",
+  "reason": "Berkeley coverage table (D009), team decision 2026-10-03: just cause covers pre-1980 units and new construction alike, so building age never makes it unknown; only the exempt rows below apply.",
+  "no_date_conditions": {
+   "quote": "New construction: units that were built and received a Certificate of Occupancy after June 1980** Partially Covered Yes No Yes Yes"
+  },
+  "exemptions": [
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 2,
+    "description": "Golden Duplex: duplex owner-occupied on December 31, 1979, with an owner still living in one unit",
+    "quote": "“Golden Duplex”: duplex that was owner-occupied on December 31, 1979, and currently has an owner living in one of the units"
+   },
+   {
+    "fact": "tenancy_specific",
+    "description": "unit where the owner shares a kitchen or bath with the tenant",
+    "quote": "Unit where the owner shares a kitchen or bath with the tenant if the owner lived on the property at the time the tenancy started"
+   },
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 2,
+    "description": "tenancy started after Nov 7, 2018 on a property where one unit is an ADU and either unit is owner-occupied",
+    "quote": "Tenancies started after Nov 7, 2018, on properties where one unit is an ADU and either unit is owner-occupied."
+   },
+   {
+    "fact": "special_housing_type",
+    "description": "university rental units such as dormitories",
+    "quote": "University rental units such as dormitories. Exempt No No No No"
+   },
+   {
+    "fact": "special_housing_type",
+    "description": "nonprofit cooperative",
+    "quote": "Nonprofit Cooperative Exempt No No No No"
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "NJ",
+   "category": "screening_restrictions",
+   "source_doc_id": "D067",
+   "citation": "N.J.S.A. 10:5-12(g) to -(h)"
+  },
+  "evidence_doc_id": "D068",
+  "reason": "LAD exceptions stated in the Division on Civil Rights brochure (starter-pack D068).",
+  "exemptions": [
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 2,
+    "description": "one apartment in an owner-occupied two-family dwelling",
+    "quote": "The rental of a single apartment or flat in a two-family dwelling, the other occupancy unit of which is occupied by the owner as his/her residence at the time of such rentals"
+   },
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 1,
+    "description": "room(s) rented by the owner or occupant of a one-family dwelling they live in",
+    "quote": "The rental of a room or rooms to another person or persons by the owner or occupant of a one-family dwelling occupied by him/her as his/her residence at the time of such rental"
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "NJ",
+   "category": "security_deposits",
+   "source_doc_id": "D067",
+   "citation": "N.J.S.A. 46:8-21.2"
+  },
+  "evidence_doc_id": "D067",
+  "reason": "Security Deposit Law exception stated in the DCA Truth in Renting guide (starter-pack D067), team decision 2026-10-03.",
+  "exemptions": [
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 3,
+    "description": "owner-occupied two- or three-family dwelling (a tenant there may opt in 30 days after a written request)",
+    "quote": "The exception is an owner-occupied two-, or three-family dwelling."
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "NJ",
+   "category": "security_deposits",
+   "source_doc_id": "D067",
+   "citation": "N.J.S.A. 46:8-21.1"
+  },
+  "evidence_doc_id": "D067",
+  "reason": "Security Deposit Law exception stated in the DCA Truth in Renting guide (starter-pack D067), team decision 2026-10-03.",
+  "exemptions": [
+   {
+    "fact": "owner_occupied",
+    "applies_only_if_units_at_most": 3,
+    "description": "owner-occupied two- or three-family dwelling (a tenant there may opt in 30 days after a written request)",
+    "quote": "The exception is an owner-occupied two-, or three-family dwelling."
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "San Francisco, CA",
+   "category": "rent_increase_limits",
+   "source_doc_id": "D080"
+  },
+  "evidence_doc_id": "D079",
+  "reason": "SF rent limits exclude units that first obtained a certificate of occupancy after June 13, 1979 (starter-pack D079); team decision 2026-10-03.",
+  "date_cutoff": {
+   "basis": "certificate_of_occupancy",
+   "covered_if": "on_or_before",
+   "date": "1979-06-13",
+   "quote": "This includes tenancies in newly constructed rental units that first obtained a Certificate of Occupancy after June 13, 1979"
+  }
+ },
+ {
+  "match": {
+   "jurisdiction": "Jersey City, NJ",
+   "category": "rent_increase_limits",
+   "source_doc_id": "D036"
+  },
+  "evidence_doc_id": "D036",
+  "reason": "D036 is the city's Landlord/Tenant Relations page, not the ordinance; it says exemptions exist but lists only the 1-4 unit one (team decision 2026-10-03).",
+  "caveat": {
+   "text": "The source states that exemptions exist but does not list them, so coverage could not be fully tested.",
+   "quote": "The Rent Control Ordinance provides certain exemptions from rent regulation.",
+   "confidence_max": 0.5
+  }
+ },
+ {
+  "match": {
+   "jurisdiction": "Hoboken, NJ",
+   "category": "rent_increase_limits",
+   "source_doc_id": "TC01"
+  },
+  "evidence_doc_id": "TC01",
+  "reason": "Hoboken Code § 155-2: 30-year exemption for multiple dwellings built after June 25, 1987, only where the landlord met the N.J.S.A. 2A:42-84.1 filing requirements (team-captured main source); team decision 2026-10-03.",
+  "exemptions": [
+   {
+    "fact": "new_construction",
+    "exempt_years": 30,
+    "constructed_after": "1987-06-25",
+    "description": "multiple dwellings built after June 25, 1987, for up to 30 years after completion, if the landlord made the N.J.S.A. 2A:42-84.1 filings",
+    "quote": "In accordance with N.J.S.A. 2A:42-84.1 et seq., the provisions of this chapter shall not apply to multiple dwellings, as defined in the statute, constructed after June 25, 1987, for a period not to exceed the period of amortization of any initial mortgage loan obtained for the multiple dwelling or for 30 years following completion of construction, whichever is less."
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "Newark, NJ",
+   "category": "rent_increase_limits",
+   "source_doc_id": "D070"
+  },
+  "evidence_doc_id": "D070",
+  "reason": "Newark Code § 19:2-18.1: newly constructed multiple dwellings exempt for up to 30 years after completion, after certification by the Rent Control Board (team-captured main source); team decision 2026-10-03.",
+  "exemptions": [
+   {
+    "fact": "new_construction",
+    "exempt_years": 30,
+    "description": "newly constructed multiple dwellings, for up to 30 years after completion, if certified exempt by the Rent Control Board",
+    "quote": "The provisions of the Rent Control Ordinance, which limit the periodic or regular increases in base rentals of dwelling units shall not apply to newly constructed multiple dwellings for a period of time not to exceed the period of amortization of any initial mortgage loan obtained for the multiple dwelling, or for 30 years following completion of construction, whichever is less."
+   }
+  ]
+ },
+ {
+  "match": {
+   "jurisdiction": "CA",
+   "category": "rent_increase_limits",
+   "source_doc_id": "D024"
+  },
+  "evidence_doc_id": "D024",
+  "reason": "Cal. Civ. Code 1947.12(d)(6): the owner-occupied exemption covers only a property with two dwelling units in one structure, so it cannot apply to a larger building (starter-pack D024).",
+  "unit_caps": [
+   {
+    "description": "Property with two separate dwelling units in a single structure where the owner occupies one as principal residence at the start of the tenancy; neither unit an ADU or JADU.",
+    "cap": 2,
+    "quote": "A property containing two separate dwelling units within a single structure in which the owner occupied one of the units as the owner’s principal place of residence at the beginning of the tenancy"
+   }
+  ]
+ }
+]
